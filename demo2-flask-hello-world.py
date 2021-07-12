@@ -25,11 +25,14 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(), nullable=False)
 
+#searches for all classes inheriting db.Model and creates table if not yet created
 db.create_all()
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    # sets maps person var as the first row and then returns string 'Hello [name column value]'
+    person = Person.query.first()
+    return 'Hello ' + person.name
 
 # run using FLASK_APP=demo2-flask-helllo-world.py FLASK_DEBUG=true flask run
 # debug addition allows live reload
