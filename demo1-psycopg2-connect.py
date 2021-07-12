@@ -1,10 +1,11 @@
-
 import psycopg2
 import environ
 import os
-
-
 from dotenv import load_dotenv
+
+
+# This demo shows connecting psycopg2 database adapter for Python to connect and run queries to PostgreSQL 
+# Also the use of dotenv to hide passwords from VCS
 
 load_dotenv()
 
@@ -13,6 +14,7 @@ load_dotenv()
 
 
 # environ.Env.read_env()
+# using psycopg2 as the db driver and the sqlalchemy for the orm
 
 connection = psycopg2.connect(user="postgres",
                                 password=os.getenv('DATABASE_PASS'),
