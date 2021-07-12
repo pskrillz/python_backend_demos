@@ -1,7 +1,12 @@
 import psycopg2
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 connection = psycopg2.connect(user="postgres",
-                                password="fuckit420",
+                                password=env('DATABASE_PASS'),
                                 host="localhost",
                                 port="5432",
                                 database="postgres")
