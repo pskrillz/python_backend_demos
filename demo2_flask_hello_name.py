@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CONNECTION_STRING')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # links an instance of the database with the flask application
 db = SQLAlchemy(app)
@@ -24,6 +25,9 @@ class Person(db.Model):
     __tablename__ = 'people'
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(), nullable=False)
+
+    def __repr__(self):
+        return f'<Person ID: {self.id}, name: {self.name}>'
 
 #searches for all classes inheriting db.Model and creates table if not yet created
 db.create_all()
