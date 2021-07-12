@@ -1,12 +1,21 @@
+
 import psycopg2
 import environ
+import os
 
-env = environ.Env()
 
-environ.Env.read_env()
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+# env = environ.Env()
+
+
+# environ.Env.read_env()
 
 connection = psycopg2.connect(user="postgres",
-                                password=env('DATABASE_PASS'),
+                                password=os.getenv('DATABASE_PASS'),
                                 host="localhost",
                                 port="5432",
                                 database="postgres")
