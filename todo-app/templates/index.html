@@ -41,7 +41,7 @@
                 })
                 .then( function(jsonResponse){
                     console.log(jsonResponse)
-                    const liItem = document.createElement('LI')
+                    const liItem = document.createElement('li')
                     liItem.innerHTML = jsonResponse['description']
                     document.getElementById('todos').appendChild(liItem)
                 })

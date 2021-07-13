@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, abort, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-import os
+import os, sys
 from dotenv import load_dotenv
 
 
@@ -32,15 +32,34 @@ db.create_all()
 def index():
     return render_template('index.html', data=Todo.query.all())
 
+# @app.route('/todos/create', methods=['POST'])
+# def create_todo():
+#     description = request.form['description']
+#     todo = Todo(description=description)
+#     db.session.add(todo)
+#     db.session.commit()
+#     jsonify({
+#         'description': todo.description
+#     })
+#     return redirect(url_for('index', description=description))
+    
 @app.route('/todos/create', methods=['POST'])
 def create_todo():
+  error = False
+  body = {}
+  try:
     description = request.form['description']
     todo = Todo(description=description)
     db.session.add(todo)
     db.session.commit()
-    jsonify({
-        'description': todo.description
-    })
+    body['description'] = todo.description
+  except:
+    error = True
+    db.session.rollback()
+    print(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    abort (400)
+  else:
     return redirect(url_for('index', description=description))
-    
-
