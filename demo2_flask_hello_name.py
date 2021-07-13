@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 
 
 app = Flask(__name__)
+
+#env variable doesnt like to work with python interactive terminal
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CONNECTION_STRING')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -38,5 +40,5 @@ def index():
     person = Person.query.first()
     return 'Hello ' + person.name
 
-# run using FLASK_APP=demo2-flask-helllo-world.py FLASK_DEBUG=true flask run
+# run using FLASK_APP=demo2_flask_hello_name FLASK_DEBUG=true flask run
 # debug addition allows live reload
