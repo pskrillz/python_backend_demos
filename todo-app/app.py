@@ -38,8 +38,9 @@ def create_todo():
     todo = Todo(description=description)
     db.session.add(todo)
     db.session.commit()
-    return jsonify({
+    jsonify({
         'description': todo.description
     })
+    return redirect(url_for('index', description=description))
     
 
